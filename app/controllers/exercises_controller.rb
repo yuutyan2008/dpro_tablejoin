@@ -15,8 +15,9 @@ class ExercisesController < ApplicationController
     # foodsは直接関連付けられている最初のアソシエーション
     # order_foodsはfoodsに関連付けられている2番目のアソシエーション
     @shops = Shop.left_outer_joins(foods: :order_foods)
+    # order_foods テーブルの id が nil（注文されていない料理）である行を抽出
     .where(order_foods: { id: nil })
-    #
+    # 最終的に求めたいのはお店の名前だから重複を消去
     .distinct
   end
 
